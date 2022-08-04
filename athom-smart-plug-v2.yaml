@@ -123,9 +123,6 @@ light:
       inverted: true
       number: GPIO13
 
-time:
-  - platform: sntp
-
 text_sensor:
   - platform: wifi_info
     ip_address:
