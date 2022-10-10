@@ -1,8 +1,8 @@
 substitutions:
-  name: "athom-sw01"
+  device_name: "athom-sw01"
   friendly_name: "Athom SW01"
   project_name: "athom.sw01"
-  project_version: "1.0"
+  project_version: "1.1"
   light_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
@@ -16,12 +16,18 @@ esp8266:
   board: esp8285
   restore_from_flash: true
 
+preferences:
+  flash_write_interval: 1min
+  
 api:
 
 ota:
 
 logger:
   baud_rate: 0
+
+mdns:
+  disabled: false
 
 web_server:
   port: 80
@@ -54,7 +60,7 @@ binary_sensor:
       - timing:
           - ON for at least 4s
         then:
-          - button.press: restart_button
+          - button.press: Reset
 
 sensor:
   - platform: uptime
@@ -62,9 +68,9 @@ sensor:
     disabled_by_default: true
 
 button:
-  - platform: restart
-    id: restart_button
-    name: "${friendly_name} Restart"
+  - platform: factory_reset
+    name: Restart with Factory Default Settings
+    id: Reset
 
 output:
   # Relay
@@ -110,3 +116,7 @@ text_sensor:
     ip_address:
       name: "${friendly_name} IP Address"
       disabled_by_default: true
+     
+time:
+  - platform: sntp
+    id: my_time
