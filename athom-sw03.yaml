@@ -1,5 +1,5 @@
 substitutions:
-  device_name: "athom-sw03"
+  name: "athom-sw03"
   friendly_name: "Athom SW03"
   project_name: "athom.sw03"
   project_version: "1.1"
