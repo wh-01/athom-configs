@@ -1,5 +1,5 @@
 substitutions:
-  name: "athom-cb02-switch"
+  device_name: "athom-cb02-switch"
   friendly_name: "Athom CB02 Switch"
   project_name: "athom.cb02-switch"
   project_version: "1.1"
