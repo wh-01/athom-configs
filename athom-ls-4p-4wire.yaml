@@ -2,7 +2,7 @@ substitutions:
   name: "athom-ls-4p-4wire"
   friendly_name: "Athom LED Controller"
   project_name: "athom.ls-4p-4wire"
-  project_version: "1.0"
+  project_version: "1.1"
   button_toggle: "true"
   light_restore_mode: RESTORE_DEFAULT_OFF
   number_of_leds: '150'
@@ -17,7 +17,7 @@ esphome:
     version: "${project_version}"
 
 esp8266:
-  board: esp01_1m
+  board: esp8285
   restore_from_flash: true
   framework:
     version: 2.7.4
@@ -27,6 +27,10 @@ api:
 ota:
 
 logger:
+  baud_rate: 0
+
+mdns:
+  disabled: false
 
 web_server:
   port: 80
@@ -48,21 +52,26 @@ binary_sensor:
     pin:
       number: GPIO0
       inverted: true
-    on_click:
-      - if:
-          condition:
-            lambda: "return ${button_toggle} == true;"
-          then:
+    disabled_by_default: true
+    on_multi_click:
+      - timing:
+          - ON for at most 1s
+          - OFF for at least 0.2s
+        then:
             - light.toggle: leds
+      - timing:
+          - ON for at least 4s
+        then:
+          - button.press: Reset
 
 sensor:
   - platform: uptime
     name: "${friendly_name} Uptime"
 
 button:
-  - platform: restart
-    id: restart_button
-    name: "${friendly_name} Restart"
+  - platform: factory_reset
+    name: Restart with Factory Default Settings
+    id: Reset
 
 power_supply:
   - id: relay
@@ -88,3 +97,7 @@ text_sensor:
     ip_address:
       name: "${friendly_name} IP Address"
       disabled_by_default: true
+     
+time:
+  - platform: sntp
+    id: my_time
