@@ -7,7 +7,7 @@ substitutions:
   light2_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
-  name: "${device_name}"
+  name: "${name}"
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
