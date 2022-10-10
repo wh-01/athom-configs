@@ -17,7 +17,7 @@ esp8266:
   restore_from_flash: true
 
 preferences:
-  flash_write_interval: 180sec
+  flash_write_interval: 1min
   
 api:
 
@@ -64,7 +64,7 @@ binary_sensor:
       - timing:
           - ON for at least 4s
         then:
-          - button.press: restart_button
+          - button.press: Reset
 
 sensor:
   - platform: uptime
@@ -105,9 +105,9 @@ sensor:
 
 
 button:
-  - platform: restart
-    id: restart_button
-    name: "${friendly_name} Restart"
+  - platform: factory_reset
+    name: Restart with Factory Default Settings
+    id: Reset
 
 switch:
   - platform: gpio
