@@ -2,18 +2,23 @@ substitutions:
   device_name: "athom-sw02-v2"
   friendly_name: "Athom SW02 V2"
   project_name: "athom.sw02-v2"
-  project_version: "1.0"
+  project_version: "1.1"
   light1_restore_mode: RESTORE_DEFAULT_OFF
   light2_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
   name: "${device_name}"
   name_add_mac_suffix: true
-  platform: ESP8266
-  board: esp8285
   project:
     name: "${project_name}"
     version: "${project_version}"
+
+esp8266:
+  board: esp8285
+  restore_from_flash: true
+
+preferences:
+  flash_write_interval: 1min
 
 api:
 
@@ -21,6 +26,9 @@ ota:
 
 logger:
   baud_rate: 0
+
+mdns:
+  disabled: false
 
 web_server:
   port: 80
@@ -53,7 +61,8 @@ binary_sensor:
       - timing:
           - ON for at least 4s
         then:
-          - switch.turn_on: restart_switch
+          - button.press: Reset
+          
   - platform: gpio
     pin:
       inverted: true
@@ -69,10 +78,10 @@ sensor:
   - platform: uptime
     name: "${friendly_name} Uptime Sensor"
 
-switch:
-  - platform: restart
-    id: restart_switch
-    name: "${friendly_name} Restart"
+button:
+  - platform: factory_reset
+    name: Restart with Factory Default Settings
+    id: Reset
 
 output:
   # Relays
@@ -146,3 +155,7 @@ text_sensor:
     ip_address:
       name: "${friendly_name} IP Address"
       disabled_by_default: true
+     
+time:
+  - platform: sntp
+    id: my_time
