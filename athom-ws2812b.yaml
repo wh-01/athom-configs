@@ -4,7 +4,7 @@ substitutions:
   project_name: "athom.ws2812b"
   project_version: "1.1"
   button_toggle: "true"
-  light_restore_mode: RESTORE_DEFAULT_OFF
+  led_restore_mode: RESTORE_DEFAULT_OFF
   number_of_leds: '150'
   led_rgb_order: GRB
   led_chipset: WS2811
