@@ -48,10 +48,11 @@ binary_sensor:
     name: "${friendly_name} Status"
 
   - platform: gpio
-    name: "${friendly_name} Button"
     pin:
-      number: GPIO0
+      number: 0
+      mode: INPUT_PULLUP
       inverted: true
+    name: "${friendly_name} Power Button"
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -63,7 +64,6 @@ binary_sensor:
           - ON for at least 4s
         then:
           - button.press: Reset
-
 sensor:
   - platform: uptime
     name: "${friendly_name} Uptime"
