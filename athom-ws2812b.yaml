@@ -21,6 +21,9 @@ esp8266:
   restore_from_flash: true
   framework:
     version: 2.7.4
+  
+preferences:
+  flash_write_interval: 1min
     
 api:
 
