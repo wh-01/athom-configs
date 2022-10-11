@@ -16,6 +16,7 @@ jobs:
           - rgb-light
           - rgbww-light
           - rgbct-light
+          - rgbw-light
           - garage-door
           - ws2812b
           - mini-switch
