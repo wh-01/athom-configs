@@ -110,6 +110,7 @@ sensor:
   - platform: template
     name: "${friendly_name} Total Energy"
     unit_of_measurement: kWh
+    device_class: "energy"
     state_class: "total_increasing"
     icon: "mdi:lightning-bolt"
     accuracy_decimals: 3
