@@ -44,6 +44,12 @@ uart:
   rx_pin: RX
   baud_rate: 4800
 
+globals:
+  - id: total_energy
+    type: float
+    restore_value: yes
+    initial_value: '0.0' 
+
 binary_sensor:
   - platform: status
     name: "${friendly_name} Status"
@@ -88,11 +94,28 @@ sensor:
 
     energy:
       name: "${friendly_name} Energy"
+      id: energy
       unit_of_measurement: kWh
       filters:
         # Multiplication factor from W to kW is 0.001
         - multiply: 0.001
+      on_value:
+        then:
+          - lambda: |-
+              static float previous_energy_value = 0.0;
+              float current_energy_value = id(energy).state;
+              id(total_energy) += current_energy_value - previous_energy_value;
+              previous_energy_value = current_energy_value;
 
+  - platform: template
+    name: "${friendly_name} Total Energy"
+    unit_of_measurement: kWh
+    state_class: "total_increasing"
+    icon: "mdi:lightning-bolt"
+    accuracy_decimals: 3
+    lambda: |-
+      return id(total_energy);
+    update_interval: 10s
 
   - platform: total_daily_energy
     name: "${friendly_name} Total Daily Energy"
