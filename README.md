@@ -28,7 +28,7 @@ Athom_1Gang_Switch|<img src="/images/Athom_1Gang_Touch_Switch.png" width="50%" h
 Athom_2Gang_Switch|<img src="/images/Athom_2Gang_Touch_Switch.png" width="50%" height="20%"><img src="/images/Athom_2Gang_Key_Switch.png" width="50%" height="20%">|athom-sw02.yaml
 Athom_3Gang_Switch|<img src="/images/Athom_3Gang_Touch_Switch.png" width="50%" height="20%"><img src="/images/Athom_3Gang_Key_Switch.png" width="50%" height="20%">|athom-sw03.yaml
 Athom_4Gang_Switch|<img src="/images/Athom_4Gang_Touch_Swtich.png" width="50%" height="20%">|athom-sw04.yaml
-Athom_7W_Bulb  Athom_GU10_Bulb|<img src="/images/Athom_7w_Bulb.png" width="50%" height="20%"><img src="/images/Athom_GU10_Bulb.png" width="50%" height="20%">|athom-rgbww-light.yaml
+Athom_7W_Bulb<br/>Athom_GU10_Bulb|<img src="/images/Athom_7w_Bulb.png" width="50%" height="20%"><img src="/images/Athom_GU10_Bulb.png" width="50%" height="20%">|athom-rgbww-light.yaml
 Athom_15W_Bulb|<img src="/images/Athom_15w_Bulb.png" width="50%" height="20%">|athom-rgbct-light.yaml
 Athom_12W_Bulb|<img src="/images/Athom_BR30_Bulb.png" width="50%" height="20%">|athom-rgbct-light.yaml|<h4>Temporarily discontinued</h4>
 Athom_RGB_Controller|<img src="/images/Athom_RGB_Controller.png" width="50%" height="20%">|athom-rgb-light.yaml
