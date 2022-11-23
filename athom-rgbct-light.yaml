@@ -108,13 +108,13 @@ script:
             lambda: return ( id(fast_boot) >= 3 );
           then:
             - lambda: |-
-                ESP_LOGD("athom-rgbww-light.yaml", "Now the counter is greater than or equal to 3, perform reset device and reboot");
+                ESP_LOGD("athom-rgbct-light.yaml", "Now the counter is greater than or equal to 3, perform reset device and reboot");
                 id(fast_boot) = 0;
                 fast_boot->loop();
                 global_preferences->sync();
                 auto call = id(rgbct_light).turn_on();
                 call.set_transition_length(500);
-                call.set_brightness(0.6);
+                call.set_brightness(1.0);
                 call.set_color_mode(ColorMode::RGB);
                 call.set_rgb(0.0, 0.0, 1.0);
                 call.perform();
