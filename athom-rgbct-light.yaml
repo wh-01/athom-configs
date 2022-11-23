@@ -82,7 +82,7 @@ output:
 
 light:
   - platform: rgbct
-    id: rgbww_light
+    id: rgbct_light
     name: "${friendly_name}"
     restore_mode: ${light_restore_mode}
     red: red_output
@@ -112,7 +112,7 @@ script:
                 id(fast_boot) = 0;
                 fast_boot->loop();
                 global_preferences->sync();
-                auto call = id(rgbww_light).turn_on();
+                auto call = id(rgbct_light).turn_on();
                 call.set_transition_length(500);
                 call.set_brightness(0.6);
                 call.set_color_mode(ColorMode::RGB);
@@ -124,10 +124,10 @@ script:
           id(fast_boot) += 1;
           fast_boot->loop();
           global_preferences->sync();
-          ESP_LOGD("athom-rgbww-light.yaml", "Now the counter is %d.  Reset the device when the counter is greater than or equal to 3", id(fast_boot));
+          ESP_LOGD("athom-rgbct-light.yaml", "Now the counter is %d.  Reset the device when the counter is greater than or equal to 3", id(fast_boot));
       - delay: 10s
       - lambda: |-
-          ESP_LOGD("athom-rgbww-light.yaml", "Reset counter");
+          ESP_LOGD("athom-rgbct-light.yaml", "Reset counter");
           id(fast_boot) = 0;
           fast_boot->loop();
           global_preferences->sync();
