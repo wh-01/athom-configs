@@ -26,7 +26,7 @@ device|picture|file name|notice
 Athom_Plug_V2|<img src="/images/Athom_EU_Plug_V2.png" width="20%" height="5%"><img src="/images/Athom_US_Plug_V2.png" width="20%" height="5%"><img src="/images/Athom_UK_Plug_V2.png" width="20%" height="5%"><img src="/images/Athom_BR_Plug_V2.png" width="20%" height="5%"><img src="/images/Athom_AU_Plug_V2.png" width="20%" height="5%"><img src="/images/Athom_IL_Plug_V2.png" width="20%" height="5%"><img src="/images/Athom_IT_Plug_V2.png" width="20%" height="5%"><img src="/images/Athom_Wall_Outlet.png" width="20%" height="5%">|athom-smart-plug-v2.yaml
 Athom_1Gang_Switch|<img src="/images/Athom_1Gang_Touch_Switch.png" width="20%" height="5%"><img src="/images/Athom_1Gang_Key_Switch.png" width="20%" height="5%"><img src="/images/Athom_1Gang_US_Switch.png" width="20%" height="5%">|athom-sw01.yaml
 Athom_2Gang_Switch|<img src="/images/Athom_2Gang_Touch_Switch.png" width="20%" height="5%"><img src="/images/Athom_2Gang_Key_Switch.png" width="20%" height="5%">|athom-sw02.yaml
-Athom_3Gang_Switch|<img src="/images/Athom_3Gang_Touch_Switch.png" width="20%" height="5%"><img src="/images/Athom_3Gang_Key_Switch.png" width="20%" height="5%">|athom-sw03.yaml
+Athom_3Gang_Switch|<img src="/images/Athom_3Gang_Touch_Switch.png" width="50%" height="5%"><img src="/images/Athom_3Gang_Key_Switch.png" width="20%" height="5%">|athom-sw03.yaml
 Athom_4Gang_Switch|<img src="/images/Athom_4Gang_Touch_Swtich.png" width="20%" height="5%">|athom-sw04.yaml
 Athom_7W_Bulb  Athom_GU10_Bulb|<img src="/images/Athom_7w_Bulb.png" width="20%" height="5%"><img src="/images/Athom_GU10_Bulb.png" width="20%" height="5%">|athom-rgbww-light.yaml
 Athom_15W_Bulb|<img src="/images/Athom_15w_Bulb.png" width="20%" height="5%">|athom-rgbct-light.yaml
