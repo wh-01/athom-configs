@@ -49,6 +49,9 @@ binary_sensor:
     pin:
       inverted: true
       number: GPIO3
+      mode:
+        input: true
+        pullup: true
     name: "${friendly_name} Button"
     disabled_by_default: true
     on_multi_click:
