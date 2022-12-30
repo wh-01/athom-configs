@@ -50,6 +50,9 @@ binary_sensor:
     pin:
       inverted: true
       number: GPIO3
+      mode:
+        input: true
+        pullup: true
     name: "${friendly_name} Button 1"
     disabled_by_default: true
     on_multi_click:
@@ -66,6 +69,9 @@ binary_sensor:
     pin:
       inverted: true
       number: GPIO5
+      mode:
+        input: true
+        pullup: true
     name: "${friendly_name} Button 2"
     disabled_by_default: true
     on_click:
