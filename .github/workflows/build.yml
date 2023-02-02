@@ -43,7 +43,7 @@ jobs:
     container: ghcr.io/esphome/esphome:${{ matrix.esphome }}
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.2.0
       - uses: ./.github/actions/build
         with:
           device: ${{ matrix.device }}
