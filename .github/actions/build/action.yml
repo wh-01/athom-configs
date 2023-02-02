@@ -25,10 +25,10 @@ runs:
         esphome_version=$(esphome version)
         esphome_version=$(echo $esphome_version | cut -d " " -f 2)
 
-        echo "name=name::$name" >> $GITHUB_OUTPUT
-        echo "name=version::$version" >> $GITHUB_OUTPUT
-        echo "name=devicename::$devicename" >> $GITHUB_OUTPUT
-        echo "name=esphome_version::$esphome_version" >> $GITHUB_OUTPUT
+        echo "name=name=$name" >> $GITHUB_OUTPUT
+        echo "name=version=$version" >> $GITHUB_OUTPUT
+        echo "name=devicename=$devicename" >> $GITHUB_OUTPUT
+        echo "name=esphome_version=$esphome_version" >> $GITHUB_OUTPUT
 
 
     - name: Compile ${{ inputs.device }}
