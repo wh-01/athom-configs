@@ -35,7 +35,7 @@ jobs:
           - ls-4p-4wire
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.2.0
       - uses: esphome/build-action@v1.1.0
         id: esphome-build
         with:
