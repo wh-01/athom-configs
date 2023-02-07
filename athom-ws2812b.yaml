@@ -2,7 +2,7 @@ substitutions:
   name: "athom-ws2812b"
   friendly_name: "Athom WS2812B"
   project_name: "athom.ws2812b"
-  project_version: "1.0"
+  project_version: "1.1"
   button_toggle: "true"
   led_restore_mode: RESTORE_DEFAULT_OFF
   number_of_leds: '150'
@@ -17,19 +17,27 @@ esphome:
     version: "${project_version}"
 
 esp8266:
-  board: esp01_1m
+  board: esp8285
   restore_from_flash: true
   framework:
     version: 2.7.4
-
+  
+preferences:
+  flash_write_interval: 1min
+    
 api:
 
 ota:
 
 logger:
+  baud_rate: 0
+
+mdns:
+  disabled: false
 
 web_server:
   port: 80
+
 
 wifi:
   ap: {} # This spawns an AP with the device name and mac address with no password.
@@ -44,25 +52,31 @@ binary_sensor:
     name: "${friendly_name} Status"
 
   - platform: gpio
-    name: "${friendly_name} Button"
     pin:
-      number: GPIO0
+      number: 0
+      mode: INPUT_PULLUP
       inverted: true
-    on_click:
-      - if:
-          condition:
-            lambda: "return ${button_toggle} == true;"
-          then:
-            - light.toggle: leds
+    name: "${friendly_name} Power Button"
+    disabled_by_default: true
+    on_multi_click:
+      - timing:
+          - ON for at most 1s
+          - OFF for at least 0.2s
+        then:
+          - light.toggle: leds
+      - timing:
+          - ON for at least 4s
+        then:
+          - button.press: Reset
 
 sensor:
   - platform: uptime
     name: "${friendly_name} Uptime"
 
 button:
-  - platform: restart
-    id: restart_button
-    name: "${friendly_name} Restart"
+  - platform: factory_reset
+    name: Restart with Factory Default Settings
+    id: Reset
 
 light:
   - platform: fastled_clockless

@@ -25,10 +25,10 @@ runs:
         esphome_version=$(esphome version)
         esphome_version=$(echo $esphome_version | cut -d " " -f 2)
 
-        echo "::set-output name=name::$name"
-        echo "::set-output name=version::$version"
-        echo "::set-output name=devicename::$devicename"
-        echo "::set-output name=esphome_version::$esphome_version"
+        echo "name=$name" >> $GITHUB_OUTPUT
+        echo "version=$version" >> $GITHUB_OUTPUT
+        echo "devicename=$devicename" >> $GITHUB_OUTPUT
+        echo "esphome_version=$esphome_version" >> $GITHUB_OUTPUT
 
 
     - name: Compile ${{ inputs.device }}
@@ -42,7 +42,7 @@ runs:
           ./${{ steps.info.outputs.name }}--${{ steps.info.outputs.version }}.bin
 
     - name: Upload binary
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Athom Binaries (${{ steps.info.outputs.esphome_version }})
         path: ./${{ steps.info.outputs.name }}--${{ steps.info.outputs.version }}.bin

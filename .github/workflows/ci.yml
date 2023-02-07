@@ -11,6 +11,10 @@ jobs:
       fail-fast: false
       matrix:
         device:
+          - rgb-light
+          - rgbww-light
+          - rgbct-light
+          - rgbw-light
           - cb02
           - garage-door
           - mini-switch
@@ -22,6 +26,8 @@ jobs:
           - rgbct-light
           - rgbww-light
           - smart-plug
+          - smart-plug-v2
+          - wall-outlet
           - sw01
           - sw02
           - sw03
@@ -29,7 +35,7 @@ jobs:
           - ws2812b
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.2.0
       - uses: esphome/build-action@v1.1.0
         id: esphome-build
         with:

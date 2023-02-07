@@ -16,6 +16,7 @@ jobs:
           - rgb-light
           - rgbww-light
           - rgbct-light
+          - rgbw-light
           - garage-door
           - ws2812b
           - mini-switch
@@ -25,6 +26,7 @@ jobs:
           - relay-board-x8
           - smart-plug
           - smart-plug-v2
+          - wall-outlet
           - sw01
           - sw01-v2
           - sw02
@@ -42,7 +44,7 @@ jobs:
     container: ghcr.io/esphome/esphome:${{ matrix.esphome }}
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.2.0
       - uses: ./.github/actions/build
         with:
           device: ${{ matrix.device }}
