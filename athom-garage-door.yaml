@@ -1,11 +1,11 @@
 substitutions:
-  name: "athom-garage-door"
-  friendly_name: "Athom Garage Door"
-  project_name: "athom.garage-door"
+  device_name: "athom-garage-door"
+  pproject_name: "Athom Technology.Garage Door Opener"
   project_version: "1.2"
 
 esphome:
-  name: "${name}"
+  name: "${device_name}"
+  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -20,6 +20,10 @@ ota:
 
 logger:
 
+
+mdns:
+  disabled: false
+
 web_server:
   port: 80
 
@@ -33,15 +37,14 @@ dashboard_import:
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
-    disabled_by_default: true
+    name: "Uptime Sensor"
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
 
   - platform: gpio
-    name: "${friendly_name} Contact"
+    name: "Contact"
     disabled_by_default: true
     device_class: garage_door
     id: contact
@@ -56,7 +59,7 @@ binary_sensor:
       number: GPIO14
       mode: INPUT_PULLUP
       inverted: true
-    name: "${friendly_name} Button"
+    name: "Button"
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -71,13 +74,17 @@ binary_sensor:
 
 button:
   - platform: factory_reset
-    name: Restart with Factory Default Settings
+    name: "Reset"
     id: Reset
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
 
 switch:
   - platform: gpio
     pin: GPIO5
-    name: "${friendly_name} Relay"
+    name: "Relay"
     id: relay
     disabled_by_default: true
     on_turn_on:
@@ -88,7 +95,7 @@ switch:
 
 light:
   - platform: status_led
-    name: "${friendly_name} Status LED"
+    name: "Status LED"
     id: wifi_led
     disabled_by_default: true
     pin: GPIO12
@@ -96,7 +103,7 @@ light:
 cover:
   - platform: template
     device_class: garage
-    name: "${friendly_name}"
+    name: "Garage Door"
     lambda: "return id(contact).state ? COVER_OPEN : COVER_CLOSED;"
     open_action:
       then:
@@ -118,9 +125,12 @@ cover:
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${friendly_name} IP Address"
-      disabled_by_default: true
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
      
 time:
   - platform: sntp
-    id: my_time
+    id: sntp_time
