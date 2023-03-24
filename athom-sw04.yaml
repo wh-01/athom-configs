@@ -110,7 +110,6 @@ button:
   - platform: safe_mode
     name: "Safe Mode"
     internal: false
-    id: Reset
 
 output:
   # Relays
