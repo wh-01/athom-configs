@@ -1,13 +1,12 @@
 substitutions:
   device_name: "athom-smart-plug-v2"
-  alias_name: "Athom Plug"
+  friendly_name: "Athom Smart Plug V2"
   project_name: "athom.smart-plug-v2"
   project_version: "1.1"
   relay_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
   name: "${device_name}"
-  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -53,14 +52,14 @@ globals:
 
 binary_sensor:
   - platform: status
-    name: "Status"
+    name: "${friendly_name} Status"
 
   - platform: gpio
     pin:
       number: 5
       mode: INPUT_PULLUP
       inverted: true
-    name: "Power Button"
+    name: "${friendly_name} Power Button"
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -75,27 +74,27 @@ binary_sensor:
 
 sensor:
   - platform: uptime
-    name: "Uptime Sensor"
+    name: "${friendly_name} Uptime Sensor"
 
   - platform: cse7766
     update_interval: 10s
     current:
-      name: "Current"
+      name: "${friendly_name} Current"
       filters:
           - lambda: if (x < 0.060) return 0.0; else return x;   #For the chip will report less than 3w power when no load is connected
 
 
     voltage:
-      name: "Voltage"
+      name: "${friendly_name} Voltage"
     power:
-      name: "Power"
+      name: "${friendly_name} Power"
       id: power_sensor
       filters:
           - lambda: if (x < 3.0) return 0.0; else return x;    #For the chip will report less than 3w power when no load is connected
 
 
     energy:
-      name: "Energy"
+      name: "${friendly_name} Energy"
       id: energy
       unit_of_measurement: kWh
       filters:
@@ -110,7 +109,7 @@ sensor:
               previous_energy_value = current_energy_value;
 
   - platform: template
-    name: "Total Energy"
+    name: "${friendly_name} Total Energy"
     unit_of_measurement: kWh
     device_class: "energy"
     state_class: "total_increasing"
@@ -121,7 +120,7 @@ sensor:
     update_interval: 10s
 
   - platform: total_daily_energy
-    name: "Total Daily Energy"
+    name: "${friendly_name} Total Daily Energy"
     restore: true
     power_id: power_sensor
     unit_of_measurement: kWh
@@ -132,19 +131,23 @@ sensor:
 
 button:
   - platform: factory_reset
-    name: "Reset"
+    name: "Restart with Factory Default Settings"
     id: Reset
+    
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
 
 switch:
   - platform: gpio
-    name: "${alias_name}"
+    name: "${friendly_name}"
     pin: GPIO12
     id: relay
     restore_mode: ${relay_restore_mode}
 
 light:
   - platform: status_led
-    name: "Status LED"
+    name: "${friendly_name} Status LED"
     id: blue_led
     disabled_by_default: true
     pin:
