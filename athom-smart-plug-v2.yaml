@@ -1,7 +1,6 @@
 substitutions:
   device_name: "athom-smart-plug-v2"
-  alias_name: "Athom Plug"
-  project_name: "athom.smart-plug-v2"
+  project_name: "Athom Technology.Smart Plug V2"
   project_version: "1.1"
   relay_restore_mode: RESTORE_DEFAULT_OFF
 
@@ -135,9 +134,13 @@ button:
     name: "Reset"
     id: Reset
 
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
+
 switch:
   - platform: gpio
-    name: "${alias_name}"
+    name: "Plug V2"
     pin: GPIO12
     id: relay
     restore_mode: ${relay_restore_mode}
