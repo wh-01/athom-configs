@@ -87,7 +87,7 @@ binary_sensor:
 
   - platform: gpio
     pin:
-      number: GPIO12
+      number: GPIO14
       mode:
         input: true
         pullup: true
@@ -103,7 +103,7 @@ binary_sensor:
 
   - platform: gpio
     pin:
-      number: GPIO14
+      number: GPIO12
       mode:
         input: true
         pullup: true
