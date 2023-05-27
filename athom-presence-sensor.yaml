@@ -1,6 +1,6 @@
 substitutions:
   name: "athom-presence-sensor"
-  friendly_name: "presence_sensor"
+  friendly_name: "presence sensor"
   room: ""
   device_description: "mmwave radar human presence sensor"
   project_name: "Athom Technology.Presence Sensor"
@@ -37,6 +37,7 @@ captive_portal:
 
 dashboard_import:
   package_import_url: github://athom-tech/athom-configs/athom-presence-sensor.yaml
+  import_full_config: true
 
 
 light:
@@ -133,22 +134,22 @@ binary_sensor:
   
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime Sensor"
+    name: "Uptime Sensor"
 
   - platform: wifi_signal
-    name: "${friendly_name} WiFi Signal Sensor"
+    name: "WiFi Signal Sensor"
     update_interval: 60s
 
   - platform: bh1750
     name: "Light Sensor"
     address: 0x23
-    update_interval: 5s
+    update_interval: 10s
 
 switch:
   - platform: template
     name: "mmWave Status"
     id: "mmwave_sensor"
-    disabled_by_default: true
+    internal: true
     entity_category: config
     optimistic: true
     restore_state: true
@@ -307,8 +308,8 @@ button:
     entity_category: config 
     internal: true
   - platform: template
-    name: "Factory Reset mmWave"
-    id: "factory_reset_mmwave"
+    name: "Reset device"
+    id: "factory_reset_device"
     entity_category: config
     on_press:
       - switch.turn_off: mmwave_sensor
@@ -342,7 +343,10 @@ text_sensor:
   - platform: wifi_info
     ip_address:
       name: "IP Address"
-      disabled_by_default: true
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
      
 time:
   - platform: sntp
