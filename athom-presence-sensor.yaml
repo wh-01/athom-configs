@@ -80,9 +80,7 @@ binary_sensor:
       - timing:
           - ON for at least 4s
         then:
-          - button.press: factory_reset_mmwave
-          - delay: 3s
-          - button.press: Reset
+          - button.press: factory_reset_device
 
   - platform: gpio
     pin:
