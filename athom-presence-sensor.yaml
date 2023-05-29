@@ -333,6 +333,7 @@ button:
     entity_category: config
     on_press:
       - button.press: restart_mmwave
+      - delay: 1s
       - button.press: restart_esp
 
 text_sensor:
