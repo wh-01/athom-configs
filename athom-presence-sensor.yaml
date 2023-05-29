@@ -298,6 +298,10 @@ number:
       - switch.turn_on: mmwave_sensor
 
 button:
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
+
   - platform: factory_reset
     name: Restart with Factory Default Settings
     id: Reset
