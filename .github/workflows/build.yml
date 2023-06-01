@@ -36,6 +36,7 @@ jobs:
           - cb02
           - ls-4p-3wire
           - ls-4p-4wire
+          - presence-sensor
         esphome:
           - latest
           - beta
