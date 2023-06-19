@@ -37,6 +37,6 @@ Athom_High_Power_RGBW_Light_Strip_Controller|<img src="/images/Athom_RGBW_Contro
 Athom_High_Power_Addressable_Light_Strip_Controller|<img src="/images/Athom_4Pin_Controller.png" width="50%" height="20%">|athom-ls-4p-3wire.yaml
 Athom_Mini_Switch|<img src="/images/Athom_Mini_Relay.png" width="50%" height="20%">|athom-mini-switch.yaml
 Athom_CB02_Switch|<img src="/images/Athom_CB02.png" width="50%" height="20%">|athom-cb02.yaml
-Athom_Presence_Sensor|<img src="/images/Athom_Presence_Sensor.png" width="50%" height="20%">|athom-presence-sensor.yaml
+Athom_Presence_Sensor|<img src="/images/Athom_Presence_Sensor.png" width="50%" height="40%">|athom-presence-sensor.yaml
 Athom_Garage_Door_Opener|<img src="/images/Athom_Garage_Door_Opener.png" width="50%" height="20%">|athom-garage-door.yaml
 Athom_Plug|<img src="/images/Athom_EU_Plug.png" width="50%" height="20%">|athom-smart-plug.yaml|<h4>Discontinued</h4>
