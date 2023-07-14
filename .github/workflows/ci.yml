@@ -34,6 +34,7 @@ jobs:
           - cb02
           - ls-4p-3wire
           - ls-4p-4wire
+          - presence-sensor
     steps:
       - name: Checkout source
         uses: actions/checkout@v3.2.0

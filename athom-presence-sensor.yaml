@@ -148,7 +148,7 @@ switch:
     internal: true
     entity_category: config
     optimistic: true
-    restore_state: true
+    restore_state: false
     turn_on_action:
       - uart.write: "sensorStart\r\n"
     turn_off_action:
@@ -158,8 +158,8 @@ switch:
 
 number:
   - platform: template
-    name: mmWave detection distance          #Value range: 1.9 ~ 12m  Default: 6 
-    id: Detection_Distance
+    name: Farthest Detection          #Value range: 1.9 ~ 12m  Default: 6 
+    id: Farthest_Detection
     entity_category: config
     min_value: 1.9
     max_value: 12
@@ -173,8 +173,8 @@ number:
       - switch.turn_off: mmwave_sensor
       - delay: 500ms
       - uart.write: !lambda 
-          std::string ranges = "setRange 1.8 " + to_string(id(Detection_Distance).state) + "\r\n";
-          return std::vector<unsigned char>(ranges.begin(), ranges.end());
+          std::string ranges = "setRange 1.8 " + str_sprintf("%.1f",id(Farthest_Detection).state) + "\r\n";
+          return std::vector<uint8_t>(ranges.begin(), ranges.end());
       - delay: 500ms
       - uart.write: "saveConfig\r\n"
       - delay: 500ms
@@ -182,7 +182,7 @@ number:
 
 
   - platform: template
-    name: mmWave maintain sensitivity   #Value range: 0 ~ 9   Default Maintain sensitivity: 7    Default Trigger sensitivity: 5
+    name: Maintain Sensitivity                 #Value range: 0 ~ 9   Default Maintain sensitivity: 7    Default Trigger sensitivity: 5
     id: Maintain_Sensitivity
     entity_category: config
     min_value: 0
@@ -196,8 +196,8 @@ number:
       - switch.turn_off: mmwave_sensor
       - delay: 500ms
       - uart.write: !lambda 
-          std::string ranges = "setSensitivity " + to_string(id(Maintain_Sensitivity).state) + " " + to_string(id(Trigger_Sensitivity).state) + "\r\n";
-          return std::vector<unsigned char>(ranges.begin(), ranges.end());
+          std::string sensitivitys = "setSensitivity " + str_sprintf("%.0f",id(Maintain_Sensitivity).state) + " " + str_sprintf("%.0f",id(Trigger_Sensitivity).state) + "\r\n";
+          return std::vector<uint8_t>(sensitivitys.begin(), sensitivitys.end());
       - delay: 500ms
       - uart.write: "saveConfig\r\n"
       - delay: 500ms
@@ -205,7 +205,7 @@ number:
 
 
   - platform: template
-    name: mmWave tigger sensitivity     #Value range: 0 ~ 9   Default Maintain sensitivity: 7    Default Trigger sensitivity: 5
+    name: Trigger Sensitivity     #Value range: 0 ~ 9   Default Maintain sensitivity: 7    Default Trigger sensitivity: 5
     id: Trigger_Sensitivity
     entity_category: config
     min_value: 0
@@ -219,8 +219,8 @@ number:
       - switch.turn_off: mmwave_sensor
       - delay: 500ms
       - uart.write: !lambda 
-          std::string ranges = "setSensitivity " + to_string(id(Maintain_Sensitivity).state) + " " + to_string(id(Trigger_Sensitivity).state) + "\r\n";
-          return std::vector<unsigned char>(ranges.begin(), ranges.end());
+          std::string sensitivityss = "setSensitivity " + str_sprintf("%.0f",id(Maintain_Sensitivity).state) + " " + str_sprintf("%.0f",id(Trigger_Sensitivity).state) + "\r\n";
+          return std::vector<uint8_t>(sensitivityss.begin(), sensitivityss.end());
       - delay: 500ms
       - uart.write: "saveConfig\r\n"
       - delay: 500ms
@@ -228,8 +228,8 @@ number:
 
 
   - platform: template
-    name: mmWave confirmation delay      #Confirmation delay      Value range: 0 ～ 100  default 0.050 seconds.
-    id: confirmation_delay
+    name: Detection Delay      #Confirmation delay      Value range: 0 ～ 100  default 0.050 seconds.
+    id: Detection_Delay
     entity_category: config
     min_value: 0.1
     max_value: 60
@@ -243,16 +243,16 @@ number:
       - switch.turn_off: mmwave_sensor
       - delay: 500ms
       - uart.write: !lambda |-
-          std::string mss = "setLatency " + to_string(id(confirmation_delay).state) + " " + to_string(id(disappear_delay).state) + "\r\n";
-          return std::vector<unsigned char>(mss.begin(), mss.end());
+          std::string detections = "setLatency " + str_sprintf("%.1f",id(Detection_Delay).state) + " " + str_sprintf("%.0f",id(Fading_Time).state) + "\r\n";
+          return std::vector<uint8_t>(detections.begin(),detections.end());
       - delay: 500ms
       - uart.write: "saveConfig\r\n"
       - delay: 500ms
       - switch.turn_on: mmwave_sensor
 
   - platform: template
-    name: mmWave disappear delay       #Fade-out delay        Value range: 0.5 ～ 1500, default 15 seconds.
-    id: disappear_delay
+    name: Fading Time           #Fade-out delay        Value range: 0.5 ～ 1500, default 15 seconds.
+    id: Fading_Time
     entity_category: config
     min_value: 1
     max_value: 300
@@ -266,17 +266,17 @@ number:
       - switch.turn_off: mmwave_sensor
       - delay: 500ms
       - uart.write: !lambda |-
-          std::string mss = "setLatency " + to_string(id(confirmation_delay).state) + " " + to_string(id(disappear_delay).state) + "\r\n";
-          return std::vector<unsigned char>(mss.begin(), mss.end());
+          std::string fadings = "setLatency " + str_sprintf("%.1f",id(Detection_Delay).state) + " " + str_sprintf("%.0f",id(Fading_Time).state) + "\r\n";
+          return std::vector<uint8_t>(fadings.begin(), fadings.end());
       - delay: 500ms
       - uart.write: "saveConfig\r\n"
       - delay: 500ms
       - switch.turn_on: mmwave_sensor
 
 
-  - platform: template
-    name: mmWave inhibit
-    id: SetInhibit
+  - platform: template  
+    name: Blockade Time                  #Configure block time        Value range: 1 ～ 255, default 1 seconds.
+    id: Blockade_Time
     entity_category: config
     min_value: 1
     max_value: 255
@@ -290,18 +290,14 @@ number:
       - switch.turn_off: mmwave_sensor
       - delay: 500ms
       - uart.write: !lambda 
-          std::string ranges = "setInhibit " + to_string(id(SetInhibit).state) + "\r\n";
-          return std::vector<unsigned char>(ranges.begin(), ranges.end());
+          std::string blockades = "setInhibit " + str_sprintf("%.0f",x) + "\r\n";
+          return std::vector<uint8_t>(blockades.begin(), blockades.end());
       - delay: 500ms
       - uart.write: "saveConfig\r\n"
       - delay: 500ms
       - switch.turn_on: mmwave_sensor
 
 button:
-  - platform: safe_mode
-    name: "Safe Mode"
-    internal: false
-
   - platform: factory_reset
     name: Restart with Factory Default Settings
     id: Reset
@@ -352,3 +348,4 @@ text_sensor:
 time:
   - platform: sntp
     id: my_time
+
