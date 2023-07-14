@@ -138,9 +138,14 @@ button:
     name: "Safe Mode"
     internal: false
 
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
+
 switch:
   - platform: gpio
     name: "${friendly_name}"
+
     pin: GPIO12
     id: relay
     restore_mode: ${relay_restore_mode}
