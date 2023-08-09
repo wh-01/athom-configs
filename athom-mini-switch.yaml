@@ -66,6 +66,10 @@ sensor:
     name: "${friendly_name} Uptime"
     disabled_by_default: true
 
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
+
 binary_sensor:
   # Wired switch
   - platform: gpio
@@ -117,7 +121,7 @@ text_sensor:
     ip_address:
       name: "${friendly_name} IP Address"
       disabled_by_default: true
-     
+
 time:
   - platform: sntp
     id: my_time

@@ -35,7 +35,7 @@ captive_portal:
 
 dashboard_import:
   package_import_url: github://athom-tech/athom-configs/athom-rgbw-light.yaml
-  
+
 binary_sensor:
   - platform: status
     name: "${friendly_name} Status"
@@ -62,28 +62,32 @@ sensor:
   - platform: uptime
     name: "${friendly_name} Uptime"
 
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
+
 button:
   - platform: factory_reset
     name: Restart with Factory Default Settings
     id: Reset
-            
+
 output:
   - platform: esp8266_pwm
     id: output_red
     pin: GPIO4
-    
+
   - platform: esp8266_pwm
     id: output_green
     pin: GPIO12
-    
+
   - platform: esp8266_pwm
     id: output_blue
     pin: GPIO14
-    
+
   - platform: esp8266_pwm
     id: output_white
     pin: GPIO13
-    
+
 light:
   - platform: rgbw
     name: "${friendly_name}"
@@ -94,7 +98,7 @@ light:
     white: output_white
     color_interlock: true
 
-    
+
 text_sensor:
   - platform: wifi_info
     ip_address:

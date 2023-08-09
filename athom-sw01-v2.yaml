@@ -15,7 +15,7 @@ esphome:
 esp8266:
   board: esp8285
   restore_from_flash: true
-  
+
 preferences:
   flash_write_interval: 1min
 
@@ -70,6 +70,10 @@ sensor:
     name: "${friendly_name} Uptime"
     disabled_by_default: true
 
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
+
 button:
   - platform: factory_reset
     name: Restart with Factory Default Settings
@@ -119,7 +123,7 @@ text_sensor:
     ip_address:
       name: "${friendly_name} IP Address"
       disabled_by_default: true
-     
+
 time:
   - platform: sntp
     id: my_time
