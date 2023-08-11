@@ -66,6 +66,10 @@ sensor:
   - platform: uptime
     name: "${friendly_name} Uptime"
 
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
+
 button:
   - platform: factory_reset
     name: Restart with Factory Default Settings

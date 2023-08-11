@@ -18,7 +18,7 @@ esp8266:
 
 preferences:
   flash_write_interval: 1min
-  
+
 api:
 
 ota:
@@ -48,7 +48,7 @@ globals:
   - id: total_energy
     type: float
     restore_value: yes
-    initial_value: '0.0' 
+    initial_value: '0.0'
 
 binary_sensor:
   - platform: status
@@ -75,6 +75,10 @@ binary_sensor:
 sensor:
   - platform: uptime
     name: "${friendly_name} Uptime Sensor"
+
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
 
   - platform: cse7766
     update_interval: 10s
@@ -133,7 +137,7 @@ button:
   - platform: factory_reset
     name: "Restart with Factory Default Settings"
     id: Reset
-    
+
   - platform: safe_mode
     name: "Safe Mode"
     internal: false
@@ -162,7 +166,7 @@ text_sensor:
       name: "Connected SSID"
     mac_address:
       name: "Mac Address"
-     
+
 time:
   - platform: sntp
     id: sntp_time

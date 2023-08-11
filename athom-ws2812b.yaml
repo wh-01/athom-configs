@@ -21,10 +21,10 @@ esp8266:
   restore_from_flash: true
   framework:
     version: 2.7.4
-  
+
 preferences:
   flash_write_interval: 1min
-    
+
 api:
 
 ota:
@@ -72,6 +72,10 @@ binary_sensor:
 sensor:
   - platform: uptime
     name: "${friendly_name} Uptime"
+
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
 
 button:
   - platform: factory_reset

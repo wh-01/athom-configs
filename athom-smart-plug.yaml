@@ -18,7 +18,7 @@ esp8266:
 
 preferences:
   flash_write_interval: 1min
-  
+
 api:
 
 ota:
@@ -62,6 +62,10 @@ sensor:
   - platform: uptime
     name: "${friendly_name} Uptime"
     disabled_by_default: true
+
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
 
   - platform: hlw8012
     sel_pin:
@@ -147,7 +151,7 @@ text_sensor:
     ip_address:
       name: "${friendly_name} IP Address"
       disabled_by_default: true
- 
+
 time:
   - platform: sntp
     id: my_time
