@@ -1,12 +1,14 @@
 substitutions:
-  device_name: "athom-smart-plug-v2"
-  friendly_name: "Athom Smart Plug V2"
-  project_name: "athom.smart-plug-v2"
-  project_version: "1.1"
-  relay_restore_mode: RESTORE_DEFAULT_OFF
+  name: "athom-smart-plug-v2"
+  friendly_name: "Smart Plug V2"
+  room: ""
+  device_description: "athom smart plug v2"
+  project_name: "Athom Technology.Smart Plug V2"
+  project_version: "2.0"
 
 esphome:
-  name: "${device_name}"
+  name: "${name}"
+  friendly_name: "${friendly_name}"
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -52,14 +54,14 @@ globals:
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
 
   - platform: gpio
     pin:
       number: 5
       mode: INPUT_PULLUP
       inverted: true
-    name: "${friendly_name} Power Button"
+    name: "Power Button"
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -74,31 +76,31 @@ binary_sensor:
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime Sensor"
+    name: "Uptime Sensor"
 
   - platform: wifi_signal
-    name: "${friendly_name} WiFi Signal"
+    name: "WiFi Signal"
     update_interval: 60s
 
   - platform: cse7766
     update_interval: 10s
     current:
-      name: "${friendly_name} Current"
+      name: "Current"
       filters:
           - lambda: if (x < 0.060) return 0.0; else return x;   #For the chip will report less than 3w power when no load is connected
 
 
     voltage:
-      name: "${friendly_name} Voltage"
+      name: "Voltage"
     power:
-      name: "${friendly_name} Power"
+      name: "Power"
       id: power_sensor
       filters:
           - lambda: if (x < 3.0) return 0.0; else return x;    #For the chip will report less than 3w power when no load is connected
 
 
     energy:
-      name: "${friendly_name} Energy"
+      name: "Energy"
       id: energy
       unit_of_measurement: kWh
       filters:
@@ -113,7 +115,7 @@ sensor:
               previous_energy_value = current_energy_value;
 
   - platform: template
-    name: "${friendly_name} Total Energy"
+    name: "Total Energy"
     unit_of_measurement: kWh
     device_class: "energy"
     state_class: "total_increasing"
@@ -124,7 +126,7 @@ sensor:
     update_interval: 10s
 
   - platform: total_daily_energy
-    name: "${friendly_name} Total Daily Energy"
+    name: "Total Daily Energy"
     restore: true
     power_id: power_sensor
     unit_of_measurement: kWh
@@ -151,7 +153,7 @@ switch:
 
 light:
   - platform: status_led
-    name: "${friendly_name} Status LED"
+    name: "Status LED"
     id: blue_led
     disabled_by_default: true
     pin:
