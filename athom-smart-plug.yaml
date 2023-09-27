@@ -18,7 +18,7 @@ esp8266:
 
 preferences:
   flash_write_interval: 1min
-  
+
 api:
 
 ota:
@@ -61,6 +61,10 @@ binary_sensor:
 sensor:
   - platform: uptime
     name: "Uptime Sensor"
+
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
 
   - platform: hlw8012
     sel_pin:
@@ -153,7 +157,7 @@ text_sensor:
       name: "Connected SSID"
     mac_address:
       name: "Mac Address"
-     
+
 time:
   - platform: sntp
     id: sntp_time

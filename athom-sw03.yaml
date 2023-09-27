@@ -66,7 +66,7 @@ binary_sensor:
           - ON for at least 4s
         then:
           - button.press: Reset
-          
+
   - platform: gpio
     pin:
       inverted: true
@@ -98,6 +98,10 @@ binary_sensor:
 sensor:
   - platform: uptime
     name: "Uptime Sensor"
+
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
 
 button:
   - platform: factory_reset
@@ -201,7 +205,7 @@ text_sensor:
       name: "Connected SSID"
     mac_address:
       name: "Mac Address"
-     
+
 time:
   - platform: sntp
     id: sntp_time

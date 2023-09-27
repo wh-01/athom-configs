@@ -65,6 +65,10 @@ sensor:
   - platform: uptime
     name: "Uptime Sensor"
 
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
+
 button:
   - platform: factory_reset
     name: "Reset"
@@ -103,7 +107,7 @@ text_sensor:
       name: "Connected SSID"
     mac_address:
       name: "Mac Address"
-     
+
 time:
   - platform: sntp
     id: sntp_time

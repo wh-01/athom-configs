@@ -39,6 +39,10 @@ sensor:
   - platform: uptime
     name: "Uptime Sensor"
 
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
+
 binary_sensor:
   - platform: status
     name: "Status"
@@ -130,7 +134,7 @@ text_sensor:
       name: "Connected SSID"
     mac_address:
       name: "Mac Address"
-     
+
 time:
   - platform: sntp
     id: sntp_time

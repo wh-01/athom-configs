@@ -1,4 +1,6 @@
-# Athom ESPHome configurations
+# Only applicable to ESP8285, ESP32 devices cannot be used
+
+### Athom ESPHome configurations
 
 This repository contains a bunch of ESPHome configurations for https://athom.tech devices.
 
@@ -8,18 +10,18 @@ If you are prompted that there is not enough space, you should upgrade `ESP8266_
 - Connect to the hotspot and visit `http://192.168.4.1/update` in the browser
 - Upload updated ESPHome firmware
 
-# Migrating to Tasmota
+### Migrating to Tasmota
 
 - Select firmware upgrade, upload `tasmota.bin.gz` and click Update, ***Please don't choose `tasmota.bin`***
 - Download Tasmota firmware here http://ota.tasmota.com/tasmota/release/tasmota.bin.gz
 
-# Migrating from Tasmota
+### Migrating from Tasmota
 
 - First execute `SetOption78 1` in the console of Tasmota
 - Select firmware upgrade, upload `tasmota-minimal.bin.gz` and click start upgrade
 - Select the firmware upgrade again, upload the firmware of ESPHome and click to start upgrade
 
-# Device List
+### Device List
 device|picture|file name|notice
 :---:|:---:|:---:|:---:
 Athom_Plug_V2|<img src="/images/Athom_EU_Plug_V2.png" width="50%" height="20%"><img src="/images/Athom_US_Plug_V2.png" width="50%" height="20%"><img src="/images/Athom_UK_Plug_V2.png" width="50%" height="20%"><img src="/images/Athom_BR_Plug_V2.png" width="50%" height="20%"><img src="/images/Athom_AU_Plug_V2.png" width="50%" height="20%"><img src="/images/Athom_IL_Plug_V2.png" width="50%" height="20%"><img src="/images/Athom_IT_Plug_V2.png" width="50%" height="20%">|athom-smart-plug-v2.yaml
