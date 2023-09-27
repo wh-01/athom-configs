@@ -1,12 +1,12 @@
 substitutions:
-  name: "athom-mini-switch"
-  friendly_name: "Athom Mini Switch"
-  project_name: "athom.mini-switch"
+  device_name: "athom-mini-switch"
+  project_name: "Athom Technology.Mini Relay Switch Module"
   project_version: "1.1"
   light_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
-  name: "${name}"
+  name: "${device_name}"
+  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -16,12 +16,15 @@ esp8266:
   board: esp8285
   restore_from_flash: true
 
+preferences:
+  flash_write_interval: 1min
+
 api:
 
 ota:
 
 logger:
-  baud_rate: 0
+
 
 mdns:
   disabled: false
@@ -39,8 +42,12 @@ dashboard_import:
 
 button:
   - platform: factory_reset
-    name: Restart with Factory Default Settings
+    name: "Reset"
     id: Reset
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
 
 output:
   - platform: gpio
@@ -50,7 +57,7 @@ output:
 light:
   - platform: status_led
     id: led
-    name: "${friendly_name} Blue LED"
+    name: "Blue LED"
     disabled_by_default: true
     pin:
       number: GPIO4
@@ -59,13 +66,12 @@ light:
   - platform: binary
     id: mini_relay
     output: relay_output
-    name: "${friendly_name} Light"
+    name: "Mini Switch"
     restore_mode: ${light_restore_mode}
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
-    disabled_by_default: true
+    name: "Uptime Sensor"
 
   - platform: wifi_signal
     name: "${friendly_name} WiFi Signal"
@@ -75,7 +81,7 @@ binary_sensor:
   # Wired switch
   - platform: gpio
     id: the_switch
-    name: "${friendly_name} Power Switch"
+    name: "Power Switch"
     disabled_by_default: true
     pin:
       number: GPIO14
@@ -102,7 +108,7 @@ binary_sensor:
       number: GPIO3
       mode: INPUT_PULLUP
       inverted: true
-    name: "${friendly_name} Power Button"
+    name: "Power Button"
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -117,13 +123,17 @@ binary_sensor:
           - button.press: Reset
 
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
+
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${friendly_name} IP Address"
-      disabled_by_default: true
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
 
 time:
   - platform: sntp
-    id: my_time
+    id: sntp_time

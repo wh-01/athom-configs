@@ -1,12 +1,12 @@
 substitutions:
-  name: "athom-relay-board-x1"
-  friendly_name: "Athom Relay Board x1"
-  project_name: "athom.relay-board-x1"
+  device_name: "athom-relay-board-x1"
+  project_name: "Athom Technology.Relay-Board-X1"
   project_version: "1.0"
   relay_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
-  name: "${name}"
+  name: "${device_name}"
+  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -15,6 +15,9 @@ esphome:
 esp8266:
   board: esp8285
   restore_from_flash: true
+
+preferences:
+  flash_write_interval: 1min
 
 api:
 
@@ -35,32 +38,36 @@ dashboard_import:
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
+    name: "Uptime Sensor"
 
   - platform: wifi_signal
     name: "${friendly_name} WiFi Signal"
     update_interval: 60s
 
 button:
-  - platform: restart
-    id: restart_button
-    name: "${friendly_name} Restart"
+  - platform: factory_reset
+    name: "Reset"
+    id: Reset
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
 
 switch:
   # Relay
   - platform: gpio
-    name: "${friendly_name}"
+    name: "Relay"
     pin: GPIO5
     id: relay1
     restore_mode: ${relay_restore_mode}
 
 light:
   - platform: status_led
-    name: "${friendly_name} Status LED"
+    name: "Status LED"
     disabled_by_default: true
     pin:
       inverted: true
@@ -69,5 +76,12 @@ light:
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${friendly_name} IP Address"
-      disabled_by_default: true
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
+     
+time:
+  - platform: sntp
+    id: sntp_time

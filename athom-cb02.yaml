@@ -1,12 +1,12 @@
 substitutions:
   device_name: "athom-cb02-switch"
-  friendly_name: "Athom CB02 Switch"
-  project_name: "athom.cb02-switch"
+  project_name: "Athom Technology.Switch Module"
   project_version: "1.1"
   relay_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
   name: "${device_name}"
+  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -15,6 +15,9 @@ esphome:
 esp8266:
   board: esp8285
   restore_from_flash: true
+
+preferences:
+  flash_write_interval: 1min
 
 api:
 
@@ -38,14 +41,14 @@ dashboard_import:
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
 
   - platform: gpio
     pin:
       number: 3
       mode: INPUT_PULLUP
       inverted: true
-    name: "${friendly_name} Power Button"
+    name: "Power Button"
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -60,8 +63,7 @@ binary_sensor:
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
-    disabled_by_default: true
+    name: "Uptime Sensor"
 
   - platform: wifi_signal
     name: "${friendly_name} WiFi Signal"
@@ -69,12 +71,16 @@ sensor:
 
 button:
   - platform: factory_reset
-    name: Restart with Factory Default Settings
+    name: "Reset"
     id: Reset
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
 
 switch:
   - platform: gpio
-    name: "${friendly_name}"
+    name: "Relay"
     pin: GPIO13
     id: relay
     restore_mode: ${relay_restore_mode}
@@ -86,7 +92,7 @@ switch:
 
 light:
   - platform: status_led
-    name: "${friendly_name} Status LED"
+    name: "Status LED"
     id: blue_led
     disabled_by_default: true
     pin:
@@ -96,9 +102,13 @@ light:
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${friendly_name} IP Address"
-      disabled_by_default: true
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
 
 time:
   - platform: sntp
-    id: my_time
+    id: sntp_time
+

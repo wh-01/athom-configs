@@ -1,12 +1,12 @@
 substitutions:
-  name: "athom-smart-plug"
-  friendly_name: "Athom Smart Plug"
-  project_name: "athom.smart-plug"
+  device_name: "athom-smart-plug"
+  project_name: "Athom Technology.Smart Plug"
   project_version: "1.1"
   relay_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
-  name: "${name}"
+  name: "${device_name}"
+  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -38,14 +38,14 @@ dashboard_import:
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
 
   - platform: gpio
     pin:
       number: 3
       mode: INPUT_PULLUP
       inverted: true
-    name: "${friendly_name} Power Button"
+    name: "Power Button"
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -60,8 +60,7 @@ binary_sensor:
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
-    disabled_by_default: true
+    name: "Uptime Sensor"
 
   - platform: wifi_signal
     name: "${friendly_name} WiFi Signal"
@@ -75,7 +74,7 @@ sensor:
     cf1_pin: GPIO5
     voltage_divider: 780
     current:
-      name: "${friendly_name} Current"
+      name: "Current"
       filters:
           - calibrate_linear:
             - 0.0000 -> 0.0110 # Relay off no load
@@ -89,10 +88,10 @@ sensor:
           # Normalize for plug load
           - lambda: if (x < 0.0260) return 0; else return (x - 0.0260);
     voltage:
-      name: "${friendly_name} Voltage"
+      name: "Voltage"
 
     power:
-      name: "${friendly_name} Power"
+      name: "Power"
       id: socket_my_power
       unit_of_measurement: W
       filters:
@@ -111,7 +110,7 @@ sensor:
     update_interval: 5s
 
   - platform: total_daily_energy
-    name: "${friendly_name} Total Energy"
+    name: "Total Energy"
     power_id: socket_my_power
     unit_of_measurement: kWh
     accuracy_decimals: 3
@@ -122,12 +121,16 @@ sensor:
 
 button:
   - platform: factory_reset
-    name: Restart with Factory Default Settings
+    name: "Reset"
     id: Reset
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
 
 switch:
   - platform: gpio
-    name: "${friendly_name}"
+    name: "Plug"
     pin: GPIO14
     id: relay
     restore_mode: ${relay_restore_mode}
@@ -139,7 +142,7 @@ switch:
 
 light:
   - platform: status_led
-    name: "${friendly_name} Status LED"
+    name: "Status LED"
     id: blue_led
     disabled_by_default: true
     pin:
@@ -149,9 +152,13 @@ light:
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${friendly_name} IP Address"
-      disabled_by_default: true
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
 
 time:
   - platform: sntp
-    id: my_time
+    id: sntp_time
+

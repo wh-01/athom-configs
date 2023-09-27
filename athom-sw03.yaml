@@ -1,14 +1,14 @@
 substitutions:
-  name: "athom-sw03"
-  friendly_name: "Athom SW03"
-  project_name: "athom.sw03"
+  device_name: "athom-3gang-switch"
+  project_name: "Athom Technology.3 Gang Switch"
   project_version: "1.1"
   light1_restore_mode: RESTORE_DEFAULT_OFF
   light2_restore_mode: RESTORE_DEFAULT_OFF
   light3_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
-  name: "${name}"
+  name: "${device_name}"
+  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -44,7 +44,7 @@ dashboard_import:
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
 
   # Touch Buttons
   - platform: gpio
@@ -54,7 +54,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "${friendly_name} Button 1"
+    name: "Button1"
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -74,12 +74,13 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "${friendly_name} Button 2"
+    name: "Button2"
     disabled_by_default: true
     on_click:
       max_length: 0.5s
       then:
         - light.toggle: light2
+
   - platform: gpio
     pin:
       inverted: true
@@ -87,7 +88,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "${friendly_name} Button 3"
+    name: "Button3"
     disabled_by_default: true
     on_click:
       max_length: 0.5s
@@ -96,8 +97,7 @@ binary_sensor:
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
-    disabled_by_default: true
+    name: "Uptime Sensor"
 
   - platform: wifi_signal
     name: "${friendly_name} WiFi Signal"
@@ -105,8 +105,12 @@ sensor:
 
 button:
   - platform: factory_reset
-    name: Restart with Factory Default Settings
+    name: "Reset"
     id: Reset
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
 
 output:
   # Relays
@@ -136,7 +140,7 @@ output:
 
 light:
   - platform: status_led
-    name: "${friendly_name} Status LED"
+    name: "Status LED"
     disabled_by_default: true
     pin:
       number: GPIO0
@@ -144,7 +148,7 @@ light:
 
   # Relays
   - platform: binary
-    name: "${friendly_name} Light 1"
+    name: "Light1"
     id: light1
     output: relay1
     restore_mode: ${light1_restore_mode}
@@ -152,8 +156,9 @@ light:
       - light.turn_on: led1
     on_turn_off:
       - light.turn_off: led1
+
   - platform: binary
-    name: "${friendly_name} Light 2"
+    name: "Light2"
     id: light2
     output: relay2
     restore_mode: ${light2_restore_mode}
@@ -161,8 +166,9 @@ light:
       - light.turn_on: led2
     on_turn_off:
       - light.turn_off: led2
+
   - platform: binary
-    name: "${friendly_name} Light 3"
+    name: "Light3"
     id: light3
     output: relay3
     restore_mode: ${light3_restore_mode}
@@ -173,31 +179,33 @@ light:
 
   # Button LEDs
   - platform: monochromatic
-    name: "${friendly_name} LED1"
+    name: "LED1"
     disabled_by_default: true
     id: led1
     output: button_led1
     default_transition_length: 500ms
   - platform: monochromatic
-    name: "${friendly_name} LED2"
+    name: "LED2"
     disabled_by_default: true
     id: led2
     output: button_led2
     default_transition_length: 500ms
   - platform: monochromatic
-    name: "${friendly_name} LED3"
+    name: "LED3"
     disabled_by_default: true
     id: led3
     output: button_led3
     default_transition_length: 500ms
 
-
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${friendly_name} IP Address"
-      disabled_by_default: true
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
 
 time:
   - platform: sntp
-    id: my_time
+    id: sntp_time

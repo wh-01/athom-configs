@@ -1,7 +1,6 @@
 substitutions:
-  name: "athom-rgbww-light"
-  friendly_name: "Athom RGBWW Light"
-  project_name: "athom.rgbww-light"
+  device_name: "athom-rgbww-light"
+  project_name: "Athom Technology.RGBCW Bulb"
   project_version: "1.1"
   light_restore_mode: RESTORE_DEFAULT_ON
   color_interlock: 'true'
@@ -13,7 +12,8 @@ globals:
     initial_value: '0'
 
 esphome:
-  name: "${name}"
+  name: "${device_name}"
+  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -51,11 +51,11 @@ dashboard_import:
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
+    name: "Uptime Sensor"
 
   - platform: wifi_signal
     name: "${friendly_name} WiFi Signal"
@@ -63,8 +63,12 @@ sensor:
 
 button:
   - platform: factory_reset
-    name: Restart with Factory Default Settings
+    name: "Reset"
     id: Reset
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
 
 output:
   - platform: esp8266_pwm
@@ -97,7 +101,7 @@ output:
 light:
   - platform: rgbww
     id: rgbww_light
-    name: "${friendly_name}"
+    name: "RGBCW_Bulb"
     restore_mode: ${light_restore_mode}
     red: red_output
     green: green_output
@@ -111,8 +115,15 @@ light:
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${friendly_name} IP Address"
-      disabled_by_default: true
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
+     
+time:
+  - platform: sntp
+    id: sntp_time
 
 script:
   - id: fast_boot_script

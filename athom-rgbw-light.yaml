@@ -1,12 +1,12 @@
 substitutions:
-  name: "athom-rgbw-light"
-  friendly_name: "Athom RGBW Light"
-  project_name: "athom.rgbw-light"
+  device_name: "athom-rgbw-light"
+  project_name: "Athom Technology.RGBW Light Strip Controller"
   project_version: "1.1"
   light_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
-  name: "${name}"
+  name: "${device_name}"
+  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -38,14 +38,14 @@ dashboard_import:
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
 
   - platform: gpio
     pin:
       number: 0
       mode: INPUT_PULLUP
       inverted: true
-    name: "${friendly_name} Power Button"
+    name: "Power Button"
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -60,7 +60,7 @@ binary_sensor:
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
+    name: "Uptime Sensor"
 
   - platform: wifi_signal
     name: "${friendly_name} WiFi Signal"
@@ -68,8 +68,12 @@ sensor:
 
 button:
   - platform: factory_reset
-    name: Restart with Factory Default Settings
+    name: "Reset"
     id: Reset
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
 
 output:
   - platform: esp8266_pwm
@@ -90,7 +94,7 @@ output:
 
 light:
   - platform: rgbw
-    name: "${friendly_name}"
+    name: "RGBW_Controller"
     id: leds
     red: output_red
     green: output_green
@@ -102,5 +106,12 @@ light:
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${friendly_name} IP Address"
-      disabled_by_default: true
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
+     
+time:
+  - platform: sntp
+    id: sntp_time

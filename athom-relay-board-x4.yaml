@@ -1,7 +1,6 @@
 substitutions:
-  name: "athom-relay-board-x4"
-  friendly_name: "Athom Relay Board x4"
-  project_name: "athom.relay-board-x4"
+  device_name: "athom-relay-board-x4"
+  project_name: "Athom Technology.Relay-Board-X4"
   project_version: "1.0"
   relay1_restore_mode: RESTORE_DEFAULT_OFF
   relay2_restore_mode: RESTORE_DEFAULT_OFF
@@ -9,7 +8,8 @@ substitutions:
   relay4_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
-  name: "${name}"
+  name: "${device_name}"
+  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -18,6 +18,9 @@ esphome:
 esp8266:
   board: esp8285
   restore_from_flash: true
+
+preferences:
+  flash_write_interval: 1min
 
 api:
 
@@ -38,50 +41,53 @@ dashboard_import:
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
-    disabled_by_default: true
+    name: "Uptime Sensor"
 
   - platform: wifi_signal
     name: "${friendly_name} WiFi Signal"
     update_interval: 60s
 
 button:
-  - platform: restart
-    id: restart_button
-    name: "${friendly_name} Restart"
+  - platform: factory_reset
+    name: "Reset"
+    id: Reset
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
 
 switch:
   - platform: gpio
-    name: "${friendly_name} - 1"
+    name: "Relay1"
     pin: GPIO16
     id: relay1
     restore_mode: ${relay1_restore_mode}
 
   - platform: gpio
-    name: "${friendly_name} - 2"
+    name: "Relay2"
     pin: GPIO14
     id: relay2
     restore_mode: ${relay2_restore_mode}
 
   - platform: gpio
-    name: "${friendly_name} - 3"
+    name: "Relay3"
     pin: GPIO12
     id: relay3
     restore_mode: ${relay3_restore_mode}
 
   - platform: gpio
-    name: "${friendly_name} - 4"
+    name: "Relay4"
     pin: GPIO13
     id: relay4
     restore_mode: ${relay4_restore_mode}
 
 light:
   - platform: status_led
-    name: "${friendly_name} Status LED"
+    name: "Status LED"
     disabled_by_default: true
     pin:
       inverted: true
@@ -90,5 +96,13 @@ light:
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${friendly_name} IP Address"
-      disabled_by_default: true
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
+     
+time:
+  - platform: sntp
+    id: sntp_time
+
