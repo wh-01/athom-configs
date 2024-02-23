@@ -6,7 +6,8 @@ substitutions:
   project_name: "Athom Technology.Smart Plug V2"
   project_version: "2.0"
   relay_restore_mode: RESTORE_DEFAULT_OFF
-
+  sensor_update_interval: 10s
+  
 esphome:
   name: "${name}"
   friendly_name: "${friendly_name}"
@@ -84,19 +85,23 @@ sensor:
     update_interval: 60s
 
   - platform: cse7766
-    update_interval: 10s
     current:
       name: "Current"
       filters:
+          - throttle: ${sensor_update_interval}
           - lambda: if (x < 0.060) return 0.0; else return x;   #For the chip will report less than 3w power when no load is connected
 
 
     voltage:
       name: "Voltage"
+      filters:
+          - throttle: ${sensor_update_interval}
+
     power:
       name: "Power"
       id: power_sensor
       filters:
+          - throttle: ${sensor_update_interval}
           - lambda: if (x < 3.0) return 0.0; else return x;    #For the chip will report less than 3w power when no load is connected
 
 
@@ -105,6 +110,7 @@ sensor:
       id: energy
       unit_of_measurement: kWh
       filters:
+        - throttle: ${sensor_update_interval}
         # Multiplication factor from W to kW is 0.001
         - multiply: 0.001
       on_value:
