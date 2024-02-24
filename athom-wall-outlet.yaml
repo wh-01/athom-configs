@@ -4,6 +4,7 @@ substitutions:
   project_name: "Athom Technology.Wall Outlet"
   project_version: "1.1"
   relay_restore_mode: RESTORE_DEFAULT_OFF
+  sensor_update_interval: 10s
 
 esphome:
   name: "${device_name}"
@@ -90,12 +91,12 @@ sensor:
     voltage:
       name: "Voltage"
       filters:
-        - throttle_average: 10s
+        - throttle_average: ${sensor_update_interval}
     power:
       name: "Power"
       id: power_sensor
       filters:
-        - throttle_average: 10s
+        - throttle_average: ${sensor_update_interval}
       #  - lambda: if (x < 3.0) return 0.0; else return x;    #For the chip will report less than 3w power when no load is connected
 
 
@@ -106,7 +107,7 @@ sensor:
       filters:
         # Multiplication factor from W to kW is 0.001
         - multiply: 0.001
-        - throttle_average: 10s
+        - throttle_average: ${sensor_update_interval}
       on_value:
         then:
           - lambda: |-
@@ -124,7 +125,7 @@ sensor:
     accuracy_decimals: 3
     lambda: |-
       return id(total_energy);
-    update_interval: 10s
+    update_interval: ${sensor_update_interval}
 
   - platform: total_daily_energy
     name: "Total Daily Energy"
