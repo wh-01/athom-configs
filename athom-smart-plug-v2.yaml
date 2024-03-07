@@ -7,7 +7,7 @@ substitutions:
   project_version: "2.0"
   relay_restore_mode: RESTORE_DEFAULT_OFF
   sensor_update_interval: 10s
-  current_limit : 16 # Current Limit in Amps. AU Plug = 10. IL, BR, EU, UK, US Plug = 16.
+  current_limit : "16" # Current Limit in Amps. AU Plug = 10. IL, BR, EU, UK, US Plug = 16.
 
 esphome:
   name: "${name}"
