@@ -155,6 +155,15 @@ sensor:
               previous_energy_value = current_energy_value;
               id(total_energy_sensor).update();
 
+    apparent_power:
+      name: "Apparent Power"
+      filters:
+        - throttle_average: ${sensor_update_interval}
+    power_factor:
+      name: "Power Factor"
+      filters:
+        - throttle_average: ${sensor_update_interval}
+
   - platform: template
     name: "Total Energy"
     id: total_energy_sensor
